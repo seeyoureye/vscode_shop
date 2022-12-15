@@ -74,5 +74,24 @@
 		"selectedColor": "#c00000",
 		"color": "",
 		"backgroundColor": ""
-	}
+	},
+	"subPackages": [
+		{
+			"root": "subpkg",
+			"pages": [
+				{
+					"path": "goods_detail/goods_detail",
+					"style": {
+						"enablePullDownRefresh": false
+					}
+				},
+				{
+					"path": "goods_list/index",
+					"style": {
+						"navigationBarTitleText": "goods_list"
+					}
+				}
+			]
+		}
+	]
 }
