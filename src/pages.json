@@ -72,8 +72,7 @@
 			}
 		],
 		"selectedColor": "#c00000",
-		"color": "",
-		"backgroundColor": ""
+		"backgroundColor": "#fff"
 	},
 	"subPackages": [
 		{
@@ -88,7 +87,10 @@
 				{
 					"path": "goods_list/index",
 					"style": {
-						"navigationBarTitleText": "goods_list"
+						"navigationBarTitleText": "goods_list",
+						"onReachBottomDistance": 50,
+						"enablePullDownRefresh": true,
+						"backgroundColor": "#ffffff"
 					}
 				},
 				{
