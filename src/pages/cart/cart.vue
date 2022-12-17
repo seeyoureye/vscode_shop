@@ -1,5 +1,7 @@
 <template>
-  <div class="cart">cart</div>
+  <div class="cart">cart
+    <i class="fa fa-book"></i>
+  </div>
 </template>
 
 <script>

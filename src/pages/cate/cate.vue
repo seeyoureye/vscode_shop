@@ -1,5 +1,7 @@
 <template>
-  <div class="cate" :style="`height:${screenHeight}px`">
+ <div>
+  <mySearch @myclick="goSearchPage"></mySearch>
+  <div class="cate" :style="'height:'+screenHeight+'px'">
     <!-- 左侧 -->
     <scroll-view scroll-y class="left_Nav">
         <view class="left_Nav_item" @click="onClick(cate,i)"
@@ -16,12 +18,14 @@
       <rightNav :rightData="rightData"></rightNav>
     </scroll-view>
   </div>
+ </div>
 </template>
 
 <script>
-import rightNav from './rightNav/rightNav.vue';
+import rightNav from './rightNav/rightNav';
+import mySearch from '../../components/mySearch';
 export default {
-  components: { rightNav },
+  components: { rightNav,mySearch },
   name: "cate",
   props: {},
   data() {
@@ -43,14 +47,14 @@ export default {
       if(res.meta.status === 200){
         this.cateList = res.message;
         this.rightData = res.message[0].children;
-        console.log(this.rightData);
+        //console.log(this.rightData);
       }else{
         uni.$tools.uniMsg();
       }
     },
     getScreenHeight(){
       let {windowHeight} = uni.getSystemInfoSync();
-      this.screenHeight = windowHeight;
+      this.screenHeight = windowHeight-50;
     },
     onClick(item,index){
       this.active = index;
@@ -58,7 +62,12 @@ export default {
       this.rightData = children;
       //每次点击,做出判断 让它变成 true 执行一次回到顶部
       this.tempState = !this.tempState;
-
+    },
+    goSearchPage(){
+      //console.log('213');
+      uni.navigateTo({
+        url:'/subpkg/search_page/index'
+      })
     }
   },
   watch: {

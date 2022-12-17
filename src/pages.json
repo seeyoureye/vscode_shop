@@ -11,6 +11,7 @@
 			"style": {
 				//"navigationBarTitleText": "",
 				"enablePullDownRefresh": false
+				//"disableScroll": true
 			}
 		},
 		{
@@ -39,9 +40,8 @@
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uni_shop商城",
 		"navigationBarBackgroundColor": "#ff5847",
-		"backgroundColor": "#ffffff",
 		"app-plus": {
-			"background": "#efeff4"
+			"background": "#c00000"
 		}
 	},
 	"tabBar": {
@@ -90,8 +90,21 @@
 					"style": {
 						"navigationBarTitleText": "goods_list"
 					}
+				},
+				{
+					"path": "search_page/index",
+					"style": {
+						"enablePullDownRefresh": false
+					}
 				}
 			]
 		}
-	]
+	],
+	"easycom": {
+		"autoscan": true,
+		"custom": {
+			// uni-ui 规则如下配置
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	}
 }
