@@ -49,7 +49,7 @@ export default {
     // 获取数据
     async getData(data){
       this.timer = true;
-      let {data:res} = await uni.$API.goodsList.reqGoodsList(data);
+      let {data:res} = await uni.$API.goods.reqGoodsList(data);
       if(res.meta.status===200){
         this.dataList.push(...res.message.goods);
         this.queryData.pagenum = res.message.pagenum;
@@ -83,7 +83,7 @@ export default {
   // 页面周期函数--监听页面加载
   onLoad(options) {
     this.queryData.query = options.query || '';
-    //this.queryData.cid = options.cat_id || '';
+    this.queryData.cid = options.cat_id || '';
     this.getData(this.queryData);
   },
   // 页面周期函数--监听页面初次渲染完成
@@ -112,6 +112,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.goods_list{
+  width: 100%;
+    overflow-x:hidden ;
+}
   .goods_items{
     width: 100%;
     height: 220rpx;

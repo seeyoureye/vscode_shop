@@ -89,7 +89,7 @@ export default {
     async queryKeyword(keyword) {
       if (keyword) {
         this.sum(keyword)
-        let { data: res } = await uni.$API.search.reqSearchKeyword(keyword);
+        let { data: res } = await uni.$API.goods.reqSearchKeyword(keyword);
         if (res.meta.status === 200) {
           this.queryList = res.message;
         } else {
