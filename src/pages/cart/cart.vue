@@ -5,19 +5,26 @@
 </template>
 
 <script>
+import tabbar from '../../mixins/tabbar';
+import {mapState} from 'vuex';
 export default {
+  mixins:[tabbar],
   name: "cart",
   components: {},
   props: {},
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    ...mapState('shopCart',['cart'])
+  },
   methods: {},
   watch: {},
 
   // 页面周期函数--监听页面加载
-  onLoad() {},
+  onLoad() {
+    console.log(this.$store.state.shopCart.obj.name);
+  },
   // 页面周期函数--监听页面初次渲染完成
   onReady() {},
   // 页面周期函数--监听页面显示(not-nvue)

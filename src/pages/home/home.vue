@@ -13,11 +13,13 @@
 </template>
     
     <script>
+import tabbar from '../../mixins/tabbar';
 import mySearch from "../../components/mySearch/index.vue";
 import HomeFloor from "./home-floor/home-floor.vue";
 import HomeNav from "./home-nav/home-nav.vue";
 import homeSwiper from "./home-swiper/home-swiper.vue";
 export default {
+  mixins:[tabbar],
   components: { homeSwiper, HomeNav, HomeFloor, mySearch },
   data() {
     return {

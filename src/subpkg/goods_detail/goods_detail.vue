@@ -29,6 +29,8 @@
         <text>快递:免运费</text>
       </view>
     </view>
+    <!-- 商品属性 -->
+    <goodsAttr :attr="goodsData.attrs"></goodsAttr>
     <!-- 商品详情 -->
     <rich-text :nodes="goods_introduce"></rich-text>
     <!-- 底部栏 小程序或者说移动端,也太依赖这些东西了... -->
@@ -45,7 +47,10 @@
 </template>
 
 <script>
+import goodsAttr from './goodsAttr/goodsAttr';
+import {mapState,mapMutations,mapGetters} from 'vuex';
 export default {
+  components:{goodsAttr},
   data() {
     return {
       goodsData: {},
@@ -55,7 +60,7 @@ export default {
         // icon
         options: [
           { icon: "shop",text: "店铺",},
-          { icon: "cart", text: "购物车", info: 2 },
+          { icon: "cart", text: "购物车", info: 0 },
         ],
         // 按钮的颜色 
         buttonGroup: [
@@ -73,17 +78,35 @@ export default {
       },
     };
   },
+  watch: {
+    getCartCount:{
+      handler(newv,oldv){
+        let res = this.footerNav.options.find(i=>i.text=='购物车');
+        if(newv >=99)res.info = '99+';
+        res.info = newv;
+      },
+      immediate:true
+    }
+  },
+  computed:{
+    ...mapState('shopCart',['cart']),
+    ...mapGetters('shopCart',['getCartCount'])
+
+  },
   onLoad(options) {
     let { goods_id } = options;
     this.getData(goods_id);
+    //this.footerNav.options[1].info = this.getCartCount;
+
   },
   methods: {
+    ...mapMutations('shopCart',['addToCart']),
     async getData(id) {
       let { data: res } = await uni.$API.goods.reqGetDetail(id);
       if (res.meta.status === 200) {
         this.goodsData = res.message;
         this.pics = res.message.pics;
-        console.log(this.goodsData);
+        //console.log(this.goodsData);
         this.goods_introduce = res.message.goods_introduce
           .replace(/<img/g, '<img style="display:block;" ')
           .replace(/.webp/g, ".jpg");
@@ -109,7 +132,25 @@ export default {
         }
     },
     rightButton(e){
-        console.log(e);
+        //console.log(e);
+        let {text} = e.content;
+        let {goods_id,goods_name,goods_price,goods_small_logo} = this.goodsData;
+        if(text=='加入购物车'){
+          // 这里,应该判断属性/或者种类是否只有一个 如果是单品的话 默认点击时 买一个
+          // 如果,种类特别多,应该是展开一个页面 选择后 携带商品信息 以及数量 那就可能不止一个了
+          // 购买也是同理
+          // 但是这里的案例,默认只添加一个
+          const goods = {
+            goods_id,// id
+            goods_name,// 标题
+            goods_price,// 价格
+            goods_small_logo,// 图片
+            goods_count:1,
+            goods_state:true
+          }
+          this.addToCart(goods);
+        }
+
     }
   },
 };

@@ -22,9 +22,11 @@
 </template>
 
 <script>
+import tabbar from '../../mixins/tabbar';
 import rightNav from './rightNav/rightNav';
 import mySearch from '../../components/mySearch';
 export default {
+  mixins:[tabbar],
   components: { rightNav,mySearch },
   name: "cate",
   props: {},

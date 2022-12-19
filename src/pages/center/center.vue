@@ -5,7 +5,10 @@
 </template>
 
 <script>
+import tabbar from '../../mixins/tabbar';
+
     export default {
+  mixins:[tabbar],
         
     }
 </script>
