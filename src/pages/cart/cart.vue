@@ -1,29 +1,43 @@
 <template>
-  <div class="cart">cart
-    <i class="fa fa-book"></i>
+  <div class="cart">
+    <div v-if="getCartData.length">
+      <!-- 地址栏 -->
+      <Address/>
+      <!-- 购物车本体 -->
+      <shopCart :data="getCartData" />
+      <!-- 底部栏 -->
+      <Footer/>
+    </div>
+    <!-- 无数据时的页面 -->
+    <div class="box" v-else>
+      <text>空空如也</text>
+    </div>
   </div>
 </template>
 
 <script>
 import tabbar from '../../mixins/tabbar';
-import {mapState} from 'vuex';
+import {mapState,mapGetters} from 'vuex';
+import shopCart from './shopCart/index.vue';
+import Address from './address/address.vue';
+import Footer from './shopCartFooter/footer.vue';
 export default {
   mixins:[tabbar],
   name: "cart",
-  components: {},
+  components: { shopCart, Address, Footer },
   props: {},
   data() {
     return {}
   },
   computed: {
-    ...mapState('shopCart',['cart'])
+    ...mapState('shopCart',['cart']),
+    ...mapGetters('shopCart',['getCartData'])
   },
   methods: {},
   watch: {},
 
   // 页面周期函数--监听页面加载
   onLoad() {
-    console.log(this.$store.state.shopCart.obj.name);
   },
   // 页面周期函数--监听页面初次渲染完成
   onReady() {},
@@ -44,4 +58,17 @@ export default {
 } 
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.cart{
+  padding-bottom: 100rpx;
+
+  .box{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+</style>
